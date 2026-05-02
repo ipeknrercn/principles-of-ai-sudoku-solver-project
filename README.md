@@ -64,7 +64,7 @@ When pure logical inference is insufficient (e.g., Hard or Expert puzzles), the 
 ---
 
 ## System Architecture
-'''
+```
 ┌─────────────────────────────────────────────────┐
 │      Web UI (Flask + HTML/CSS/JS)               │
 │  • Interactive 9×9 grid                         │
@@ -94,7 +94,7 @@ When pure logical inference is insufficient (e.g., Hard or Expert puzzles), the 
 │  • Fixed-cell tracking │
 └────────────────────────┘
 
-'''
+```
 The `Board` class is the **single source of truth**. All modules read and write through this class, ensuring consistency across the system.
 
 
@@ -140,7 +140,7 @@ Then open `http://localhost:5000` in your browser.
 ---
 
 ## Project Structure
----
+```
 
 principles-of-ai-sudoku-solver-project/
 ├── .github/
@@ -187,10 +187,8 @@ principles-of-ai-sudoku-solver-project/
 ├── .gitignore
 ├── README.md
 └── requirements.txt
-
+```
 ---
-
-
 ## Testing
 
 We follow a **test-first** approach. Every module ships with comprehensive unit tests.
