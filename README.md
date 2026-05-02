@@ -2,7 +2,7 @@
 
 > A rational AI agent that solves Sudoku puzzles by integrating **Logic**, **Mathematics**, and **Optimization** — built for the *Principles of AI* course final project.
 
-[![CI](https://github.com/ipknrercn/sudoku-solver/actions/workflows/ci.yml/badge.svg)](https://github.com/ipknrercn/sudoku-solver/actions/workflows/ci.yml)
+[![CI](https://github.com/ipknrercn/principles-of-ai-sudoku-solver-project/actions/workflows/ci.yml/badge.svg)](https://github.com/ipknrercn/principles-of-ai-sudoku-solver-project/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org)
 [![Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen)](#)
 
