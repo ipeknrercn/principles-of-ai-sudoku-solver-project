@@ -12,14 +12,9 @@
 1. [Project Overview](#project-overview)
 2. [The Three AI Pillars](#the-three-ai-pillars)
 3. [System Architecture](#system-architecture)
-4. [Team & Responsibilities](#team--responsibilities)
-5. [Tech Stack](#tech-stack)
-6. [Getting Started](#getting-started)
-7. [Project Structure](#project-structure)
-8. [Development Workflow](#development-workflow)
-9. [Testing](#testing)
-10. [Timeline](#timeline)
-11. [Deliverables](#deliverables)
+4. [Project Structure](#project-structure)
+5. [Testing](#testing)
+
 
 ---
 
@@ -69,7 +64,7 @@ When pure logical inference is insufficient (e.g., Hard or Expert puzzles), the 
 ---
 
 ## System Architecture
-
+---
 ┌─────────────────────────────────────────────────┐
 │      Web UI (Flask + HTML/CSS/JS)               │
 │  • Interactive 9×9 grid                         │
@@ -99,7 +94,7 @@ When pure logical inference is insufficient (e.g., Hard or Expert puzzles), the 
 │  • Fixed-cell tracking │
 └────────────────────────┘
 
-
+---
 The `Board` class is the **single source of truth**. All modules read and write through this class, ensuring consistency across the system.
 
 
@@ -145,6 +140,7 @@ Then open `http://localhost:5000` in your browser.
 ---
 
 ## Project Structure
+---
 
 principles-of-ai-sudoku-solver-project/
 ├── .github/
