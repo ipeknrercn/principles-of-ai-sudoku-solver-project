@@ -27,7 +27,6 @@ ENV/
 .venv
 
 # IDE
-.vscode/
 .idea/
 .cursor/
 *.swp
@@ -53,3 +52,5 @@ desktop.ini
 benchmarks/results/
 *.tmp
 *.bak
+config.bat
+node_modules
