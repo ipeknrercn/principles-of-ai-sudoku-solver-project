@@ -30,17 +30,19 @@ class SudokuSolver:
     """
 
     def __init__(self):
-    # Faz 1'den gelen mock'ları gerçek solver'larla değiştiriyoruz
         from src.logic.csp_solver import LogicSolver
+        from src.optimization.simulated_annealing import SASolver
         
         logic_solver = LogicSolver()
+        sa_solver = SASolver()
         
         self._solvers: dict[SolverMode, BaseSolver] = {
-            SolverMode.LOGIC_ONLY: logic_solver,           # ✅ Gerçek logic solver
-            SolverMode.SIMULATED_ANNEALING: MockSolver(),  # Hala mock — SA Specialist yapacak
-            SolverMode.GENETIC_ALGORITHM: MockSolver(),    # Hala mock — GA Specialist yapacak
-            SolverMode.HYBRID: logic_solver,               # ✅ Şimdilik logic, sonra hybrid yapacağız
+            SolverMode.LOGIC_ONLY: logic_solver,           # ✅
+            SolverMode.SIMULATED_ANNEALING: sa_solver,     # ✅ Yeni
+            SolverMode.GENETIC_ALGORITHM: MockSolver(),    # GA Specialist yapacak
+            SolverMode.HYBRID: logic_solver,               # Sonra hybrid yapacağız
         }
+
     def solve(self, board: Board, mode: SolverMode = SolverMode.HYBRID) -> SolverResult:
         """Seçilen mode'a göre uygun solver'ı çağır."""
         if mode not in self._solvers:
