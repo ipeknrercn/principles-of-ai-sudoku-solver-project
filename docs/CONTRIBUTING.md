@@ -16,7 +16,7 @@ Steps to follow to start working on this project.
 
 git clone https://github.com/ipeknrercn/principles-of-ai-sudoku-solver-project
 
-cd sudoku-solver
+cd principles-of-ai-sudoku-solver-project
 
 
 
