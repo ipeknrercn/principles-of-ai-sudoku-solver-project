@@ -49,7 +49,8 @@ class LogicSolver(BaseSolver):
         )
     
     def _solve_recursive(
-        self, board: Board, steps: List[InferenceStep], iterations: int
+        self, board: Board, steps: List[InferenceStep], iterations: int,
+        max_backtracks: int = 100_000
     ) -> Tuple[Board, bool, int]:
         """Inference + backtracking ile recursive çözüm."""
         backtracks = 0
@@ -61,51 +62,64 @@ class LogicSolver(BaseSolver):
                 step = apply_hidden_single(board)
             
             if step is None:
-                break  # Daha fazla inference yapılamıyor
+                break
             
             try:
                 board.set(step.row, step.col, step.value)
                 steps.append(step)
-                # Yeni atama sonrası constraint propagation
                 if not propagate_constraints(board):
                     return board, False, backtracks
             except RuntimeError:
-                pass  # Sabit hücre, atlanır
+                pass
         
-        # Çözüldü mü?
         if board.is_solved():
             return board, True, backtracks
         
-        # Hala boş hücre var — backtracking gerekli
+        # 🆕 Backtracking limiti aşıldıysa dur
+        if backtracks >= max_backtracks:
+            return board, False, backtracks
+        
         # MRV: en az candidates'ı olan boş hücreyi seç
         best_cell = self._select_mrv_cell(board)
         if best_cell is None:
-            # Boş hücre yok ama çözülmemiş — geçersiz durum
             return board, False, backtracks
         
         r, c = best_cell
         candidates = board.get_candidates(r, c)
         
         if len(candidates) == 0:
-            return board, False, backtracks  # Çözümsüz
+            return board, False, backtracks
         
         # Her olası değeri dene
         for value in sorted(candidates):
             backtracks += 1
-            trial = board.copy()
-            try:
-                trial.set(r, c, value)
+            
+            # 🆕 Adım sayısı çok fazlaysa kayıt etmeyi durdur (memory için)
+            if len(steps) < 1000:
                 steps.append(InferenceStep(
                     rule_name="Backtracking",
                     row=r, col=c, value=value,
                     reason=f"Trying value {value} at ({r},{c}) [MRV-selected]"
                 ))
+            steps_before = len(steps)  # 🆕 Bu denemeden öncesini hatırla
+            
+            trial = board.copy()
+            try:
+                trial.set(r, c, value)
                 if propagate_constraints(trial):
-                    result, success, sub_backtracks = self._solve_recursive(trial, steps, iterations)
+                    result, success, sub_backtracks = self._solve_recursive(
+                        trial, steps, iterations, max_backtracks - backtracks
+                    )
                     backtracks += sub_backtracks
                     if success:
                         return result, True, backtracks
+                
+                # 🆕 Bu deneme başarısız — eklenen yanlış adımları geri al
+                if len(steps) > steps_before:
+                    del steps[steps_before:]
             except RuntimeError:
+                if len(steps) > steps_before:
+                    del steps[steps_before:]
                 continue
         
         return board, False, backtracks

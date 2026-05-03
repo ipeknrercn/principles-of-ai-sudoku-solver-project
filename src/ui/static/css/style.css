@@ -1,0 +1,424 @@
+/* ============================================
+   GLOBAL STYLES
+   ============================================ */
+
+   :root {
+    --primary: #2E75B6;
+    --primary-dark: #1F4E79;
+    --accent: #28a745;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    --bg: #f5f7fa;
+    --surface: #ffffff;
+    --text: #1a1a1a;
+    --text-muted: #6c757d;
+    --border: #dee2e6;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --radius: 8px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    padding: 30px 0;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2.5em;
+    color: var(--primary-dark);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 1.1em;
+}
+
+footer {
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 40px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+}
+
+/* ============================================
+   LAYOUT
+   ============================================ */
+
+.main-grid {
+    display: grid;
+    grid-template-columns: minmax(450px, 1fr) 1fr;
+    gap: 30px;
+}
+
+@media (max-width: 900px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================
+   SUDOKU BOARD
+   ============================================ */
+
+.board-section h2 {
+    margin-bottom: 15px;
+    color: var(--primary-dark);
+}
+
+.sudoku-board {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    aspect-ratio: 1;
+    max-width: 500px;
+    border: 3px solid var(--primary-dark);
+    background: var(--surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.sudoku-cell {
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    position: relative;
+    user-select: none;
+}
+
+.sudoku-cell:hover {
+    background: #e8f4fd;
+}
+
+.sudoku-cell.fixed {
+    background: #f8f9fa;
+    color: var(--primary-dark);
+    cursor: not-allowed;
+}
+
+.sudoku-cell.solved {
+    background: #d4edda;
+    color: var(--accent);
+    animation: pop 0.3s ease;
+}
+
+.sudoku-cell.conflict {
+    background: #f8d7da !important;
+    color: var(--danger) !important;
+    animation: shake 0.4s ease;
+    font-weight: 800;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    75% { transform: translateX(3px); }
+}
+
+.sudoku-cell.selected {
+    background: #cfe2ff;
+    box-shadow: inset 0 0 0 2px var(--primary);
+}
+
+/* 3x3 blok ayırıcılar */
+.sudoku-cell:nth-child(3n) { border-right: 2px solid var(--primary-dark); }
+.sudoku-cell:nth-child(9n) { border-right: none; }
+.sudoku-cell:nth-child(n+19):nth-child(-n+27),
+.sudoku-cell:nth-child(n+46):nth-child(-n+54) {
+    border-bottom: 2px solid var(--primary-dark);
+}
+
+@keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.board-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.btn-secondary {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+    background: #e9ecef;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.preset-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.btn-preset {
+    padding: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn-preset:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* ============================================
+   STATUS BAR
+   ============================================ */
+
+.status-bar {
+    margin-top: 15px;
+    padding: 10px 15px;
+    background: var(--surface);
+    border-radius: var(--radius);
+    border-left: 4px solid var(--primary);
+}
+
+.status-bar.success {
+    border-left-color: var(--accent);
+    background: #d4edda;
+}
+
+.status-bar.error {
+    border-left-color: var(--danger);
+    background: #f8d7da;
+}
+
+/* ============================================
+   CONTROL CARDS
+   ============================================ */
+
+.control-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.control-card {
+    background: var(--surface);
+    padding: 20px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.control-card h3 {
+    margin-bottom: 15px;
+    color: var(--primary-dark);
+    font-size: 1.1em;
+}
+
+/* Algorithm Selector */
+.algo-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.algo-option {
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.algo-option:hover {
+    border-color: var(--primary);
+    background: #f0f7ff;
+}
+
+.algo-option input[type="radio"] {
+    display: none;
+}
+
+.algo-option input[type="radio"]:checked + span {
+    color: var(--primary-dark);
+    font-weight: 700;
+}
+
+.algo-option:has(input:checked) {
+    border-color: var(--primary);
+    background: #e7f1ff;
+}
+
+.algo-option span {
+    font-weight: 600;
+}
+
+.algo-option small {
+    color: var(--text-muted);
+    font-size: 0.85em;
+    margin-top: 2px;
+}
+
+/* Analysis Result */
+.analysis-result {
+    margin-top: 12px;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: var(--radius);
+}
+
+.metric {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+}
+
+.metric-label {
+    color: var(--text-muted);
+}
+
+.metric-value {
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+
+/* Results */
+.results, .inference-steps {
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: var(--radius);
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.placeholder {
+    color: var(--text-muted);
+    text-align: center;
+    font-style: italic;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.result-item:last-child {
+    border-bottom: none;
+}
+
+.inference-steps ol {
+    padding-left: 20px;
+    font-family: 'Consolas', monospace;
+    font-size: 0.9em;
+}
+
+.inference-steps li {
+    padding: 4px 0;
+    color: var(--text);
+}
+
+/* ============================================
+   LOADING OVERLAY
+   ============================================ */
+
+.loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.loading-overlay.hidden {
+    display: none;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.hidden {
+    display: none !important;
+}
