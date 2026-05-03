@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku AI Solver — Logic + Math + Optimization</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧠 Sudoku AI Solver</h1>
+            <p class="subtitle">Rational Agent Powered by <strong>Logic</strong> · <strong>Mathematics</strong> · <strong>Optimization</strong></p>
+        </header>
+
+        <main class="main-grid">
+            <!-- SOL: Sudoku Tahtası -->
+            <section class="board-section">
+                <h2>Puzzle</h2>
+                <div id="sudoku-board" class="sudoku-board"></div>
+                
+                <div class="board-actions">
+                    <button id="btn-solve" class="btn btn-primary">▶ Solve</button>
+                    <button id="btn-reset" class="btn btn-secondary">↺ Reset</button>
+                    <button id="btn-clear" class="btn btn-secondary">🗑 Clear</button>
+                </div>
+                
+                <div class="status-bar">
+                    <span id="status-text">Ready</span>
+                </div>
+            </section>
+
+            <!-- SAĞ: Kontroller ve Sonuçlar -->
+            <section class="control-section">
+                <!-- Algoritma Seçimi -->
+                <div class="control-card">
+                    <h3>🎯 Algorithm</h3>
+                    <div class="algo-selector">
+                        <label class="algo-option">
+                            <input type="radio" name="algo" value="logic" checked>
+                            <span>Logic Only</span>
+                            <small>CSP + Inference Rules</small>
+                        </label>
+                        <label class="algo-option">
+                            <input type="radio" name="algo" value="sa">
+                            <span>Simulated Annealing</span>
+                            <small>Heuristic Optimization</small>
+                        </label>
+                        <label class="algo-option">
+                            <input type="radio" name="algo" value="hybrid">
+                            <span>Hybrid (Recommended)</span>
+                            <small>Logic + Optimization</small>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Hazır Puzzle Yükleyici -->
+                <div class="control-card">
+                    <h3>📚 Load Preset</h3>
+                    <div class="preset-buttons">
+                        <button class="btn-preset" data-difficulty="easy">Easy</button>
+                        <button class="btn-preset" data-difficulty="medium">Medium</button>
+                        <button class="btn-preset" data-difficulty="hard">Hard</button>
+                        <button class="btn-preset" data-difficulty="expert">Expert</button>
+                    </div>
+                </div>
+
+                <!-- Math Analizi -->
+                <div class="control-card">
+                    <h3>📐 Mathematical Analysis</h3>
+                    <button id="btn-analyze" class="btn btn-secondary">Analyze Puzzle</button>
+                    <div id="analysis-result" class="analysis-result hidden">
+                        <div class="metric">
+                            <span class="metric-label">Difficulty:</span>
+                            <span id="difficulty-label" class="metric-value">-</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Difficulty Score:</span>
+                            <span id="difficulty-score" class="metric-value">-</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Empty Cells:</span>
+                            <span id="empty-cells" class="metric-value">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Solver Sonuçları -->
+                <div class="control-card">
+                    <h3>📊 Results</h3>
+                    <div id="results" class="results">
+                        <p class="placeholder">Solve to see results...</p>
+                    </div>
+                </div>
+
+                <!-- Inference Steps -->
+                <div class="control-card">
+                    <h3>🔍 Inference Steps</h3>
+                    <div id="inference-steps" class="inference-steps">
+                        <p class="placeholder">Steps will appear here...</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Principles of AI — Final Project · Logic + Math + Optimization</p>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p id="loading-text">Solving...</p>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/sudoku.js') }}"></script>
+</body>
+</html>
