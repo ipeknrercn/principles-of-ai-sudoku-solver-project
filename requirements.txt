@@ -18,3 +18,6 @@ flake8==7.0.0
 
 # Utility
 tqdm==4.66.4
+
+# Production WSGI server (Render deployment)
+gunicorn==23.0.0
