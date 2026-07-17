@@ -221,3 +221,8 @@ pytest --cov=src --cov-report=html
 - CI runs tests on Python 3.10, 3.11, and 3.12
 
 ---
+<img width="1919" height="873" alt="Ekran görüntüsü 2026-05-03 041627" src="https://github.com/user-attachments/assets/3b84a9c9-1163-4b23-9370-6d16fe5fd798" />
+<img width="1915" height="889" alt="Ekran görüntüsü 2026-05-03 041739" src="https://github.com/user-attachments/assets/2ab9e6c1-9fff-47fe-a2f4-ee1c79ffd4f5" />
+<img width="1919" height="889" alt="Ekran görüntüsü 2026-05-03 041809" src="https://github.com/user-attachments/assets/f6be3ca4-84a1-403b-993d-c59de3837882" />
+
+
