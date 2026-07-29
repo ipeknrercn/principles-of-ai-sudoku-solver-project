@@ -18,3 +18,5 @@ flake8==7.0.0
 
 # Utility
 tqdm==4.66.4
+
+gunicorn==23.0.0
