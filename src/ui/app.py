@@ -6,6 +6,8 @@ Frontend (HTML/JS) ile backend (solver) arasındaki köprü.
 """
 
 from __future__ import annotations
+import utils.transport
+import utils.session
 import json
 import time
 from pathlib import Path
